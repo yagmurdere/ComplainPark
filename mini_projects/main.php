@@ -64,7 +64,6 @@ include 'components/connect.php';
 
 </div>
 
-<a href="all_posts.php?table=marmara">helo</a>
 
 <!-- Main Content Ends -->
 
