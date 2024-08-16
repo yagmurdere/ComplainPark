@@ -2,23 +2,20 @@
 
 include 'components/connect.php';
 
-
-if(isset($_GET['table']) && ($_GET['table'] == 'marmara' || $_GET['table'] == 'guneydogu' || $_GET['table'] == 'karadeniz'
-|| $_GET['table'] == 'icanadolu' || $_GET['table'] == 'doguanadolu' || $_GET['table'] == 'ege' || $_GET['table'] == 'akdeniz')){
+if(isset($_GET['table']) ){
    $table = $_GET['table'];
 }else{
    // Varsayılan olarak 'post' tablosunu kullan
-   $table = 'marmara';
+   $table = 'istpark';
 }
-$reviews_tables='review_'.$table;
+$reviews_tables='review_istpark';
 
 if(isset($_GET['get_id'])){
    $get_id = $_GET['get_id'];
 }else{
    $get_id = '';
-   header('location:all_posts.php');
+   header('location:main.php');
 }
-
 
 if(isset($_POST['submit'])){
 
@@ -32,14 +29,36 @@ if(isset($_POST['submit'])){
       $rating = $_POST['rating'];
       $rating = filter_var($rating, FILTER_SANITIZE_STRING);
 
+      // Handle file upload
+      $image = '';
+      if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+         $fileTmpPath = $_FILES['image']['tmp_name'];
+         $fileName = $_FILES['image']['name'];
+         $fileSize = $_FILES['image']['size'];
+         $fileType = $_FILES['image']['type'];
+         $fileNameCmps = explode('.', $fileName);
+         $fileExtension = strtolower(end($fileNameCmps));
+         $allowedExts = ['jpg', 'jpeg', 'png', 'gif'];
+
+         if (in_array($fileExtension, $allowedExts)) {
+            $uploadFileDir = 'uploaded_files/';
+            $dest_path = $uploadFileDir . $id . '.' . $fileExtension;
+            if (move_uploaded_file($fileTmpPath, $dest_path)) {
+               $image = $id . '.' . $fileExtension;
+            }
+         } else {
+            $warning_msg[] = 'Invalid file type. Only jpg, jpeg, png, and gif are allowed.';
+         }
+      }
+
       $verify_review = $conn->prepare("SELECT * FROM `$reviews_tables` WHERE post_id = ? AND user_id = ?");
       $verify_review->execute([$get_id, $user_id]);
 
       if($verify_review->rowCount() > 0){
          $warning_msg[] = 'Your review already added!';
       }else{
-         $add_review = $conn->prepare("INSERT INTO `$reviews_tables`(id, post_id, user_id, rating, title, description) VALUES(?,?,?,?,?,?)");
-         $add_review->execute([$id, $get_id, $user_id, $rating, $title, $description]);
+         $add_review = $conn->prepare("INSERT INTO `$reviews_tables`(id, post_id, user_id, rating, title, description, image) VALUES(?,?,?,?,?,?,?)");
+         $add_review->execute([$id, $get_id, $user_id, $rating, $title, $description, $image]);
          $success_msg[] = 'Review added!';
       }
 
@@ -73,7 +92,7 @@ if(isset($_POST['submit'])){
 
 <section class="account-form">
 
-   <form action="" method="post">
+   <form action="" method="post" enctype="multipart/form-data">
       <h3>Post Your Review</h3>
       <p class="placeholder">Review Title <span>*</span></p>
       <input type="text" name="title" required maxlength="50" placeholder="enter review title" class="box">
@@ -87,6 +106,8 @@ if(isset($_POST['submit'])){
          <option value="4">4</option>
          <option value="5">5</option>
       </select>
+      <p class="placeholder">Upload Photo</p>
+      <input type="file" name="image" class="box">
       <input type="submit" value="submit review" name="submit" class="btn">
       <a href="view_post.php?get_id=<?= $get_id; ?>&table=<?= $table?>" class="option-btn">Go Back</a>
    </form>
@@ -94,8 +115,6 @@ if(isset($_POST['submit'])){
 </section>
 
 <!-- add review section ends -->
-
-
 
 <!-- sweetalert cdn link  -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>

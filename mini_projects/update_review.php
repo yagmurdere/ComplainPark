@@ -2,19 +2,18 @@
 
 include 'components/connect.php';
 
-if(isset($_GET['table']) && ($_GET['table'] == 'marmara' || $_GET['table'] == 'guneydogu' || $_GET['table'] == 'karadeniz'
-|| $_GET['table'] == 'icanadolu' || $_GET['table'] == 'doguanadolu' || $_GET['table'] == 'ege' || $_GET['table'] == 'akdeniz')){
+if(isset($_GET['table']) ){
    $table = $_GET['table'];
 }else{
    // Varsayılan olarak 'post' tablosunu kullan
-   $table = 'marmara';
+   $table = 'istpark';
 }
-$reviews_tables='review_'.$table;
+$reviews_tables='review_istpark';
 if(isset($_GET['get_id'])){
    $get_id = $_GET['get_id'];
 }else{
    $get_id = '';
-   header('location:all_posts.php');
+   header('location:main.php');
 }
 
 if(isset($_POST['submit'])){
