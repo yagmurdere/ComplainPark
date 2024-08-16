@@ -50,6 +50,11 @@ if (isset($_GET['get_id'])) {
          <h3 class="title"><?= htmlspecialchars($fetch_post['name']); ?></h3>
          <p><?= $fetch_post['park_type']; ?></p>
       </div>
+      <div class="col">
+      <a href="<?= $fetch_post['location']; ?>" target="main_iframe" class="cinema" >Cinemaximum Akasya</a>
+      <iframe src="<?= $fetch_post['location']; ?>" name="main_iframe" width="600" height="450" style="border:4px darkcyan solid;float:right;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+      </div>
    </div>
    <?php
       } else {
