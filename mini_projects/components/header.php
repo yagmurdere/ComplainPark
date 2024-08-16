@@ -3,7 +3,7 @@
    <section class="flex">
 
       <a href="main.php" class="logo">
-         <img class="logo-image" src="uploaded_files/travel.png" height="50px"> TraveltoTurkey</a>
+         <img class="logo-image" src="uploaded_files/travel.png" height="50px"> ComplainPark</a>
 
       <nav class="navbar">
          
