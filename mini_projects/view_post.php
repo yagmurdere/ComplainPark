@@ -110,15 +110,21 @@ if (isset($_POST['delete_review'])) {
       <div class="col">
          <div class="flex">
             <div class="total-reviews">
-               <h3><?= $average; ?><i class="fas fa-star"></i></h3>
+            <?php if ($average == 1) { ?>
+               <h3 style="color:var(--dark-turkuaz);"><span><?= $average; ?></span><span>☹</span></h3>
+            <?php } else if ($average == 2 || $average == 3) { ?>
+               <h3 style="color:var(--dark-orange);"><span><?= $average; ?></span><span>☹</span> </h3>
+            <?php } else if ($average == 4 || $average == 5) { ?>
+               <h3 style="color:var(--red);"><span><?= $average; ?></span><span>☹</span> </h3>
+            <?php }; ?>
                <p><?= $total_reviews; ?> reviews</p>
             </div>
             <div class="total-ratings">
-               <p><i class="fas fa-star"></i><span><?= $rating_5; ?></span></p>
-               <p><i class="fas fa-star"></i><span><?= $rating_4; ?></span></p>
-               <p><i class="fas fa-star"></i><span><?= $rating_3; ?></span></p>
-               <p><i class="fas fa-star"></i><span><?= $rating_2; ?></span></p>
-               <p><i class="fas fa-star"></i><span><?= $rating_1; ?></span></p>
+               <p><span>☹</span></i><span><?= $rating_5; ?></span></p>
+               <p><span>☹</span></i><span><?= $rating_4; ?></span></p>
+               <p><span>☹</span></i><span><?= $rating_3; ?></span></p>
+               <p><span>☹</span></i><span><?= $rating_2; ?></span></p>
+               <p><span>☹</span></i><span><?= $rating_1; ?></span></p>
             </div>
          </div>
       </div>
@@ -168,11 +174,11 @@ if (isset($_POST['delete_review'])) {
       <?php }; ?>
       <div class="ratings">
          <?php if ($fetch_review['rating'] == 1) { ?>
-            <p style="background:var(--red);"><i class="fas fa-star"></i> <span><?= $fetch_review['rating']; ?></span></p>
+            <p style="background:var(--dark-turkuaz);"><span>☹</span><span><?= $fetch_review['rating']; ?></span></p>
          <?php } else if ($fetch_review['rating'] == 2 || $fetch_review['rating'] == 3) { ?>
-            <p style="background:var(--dark-orange);"><i class="fas fa-star"></i> <span><?= $fetch_review['rating']; ?></span></p>
+            <p style="background:var(--dark-orange);"><span>☹</span> <span><?= $fetch_review['rating']; ?></span></p>
          <?php } else if ($fetch_review['rating'] == 4 || $fetch_review['rating'] == 5) { ?>
-            <p style="background:var(--dark-turkuaz);"><i class="fas fa-star"></i> <span><?= $fetch_review['rating']; ?></span></p>
+            <p style="background:var(--red);"><span>☹</span> <span><?= $fetch_review['rating']; ?></span></p>
          <?php }; ?>
       </div>
       <h3 class="title"><?= $fetch_review['title']; ?></h3>
@@ -210,7 +216,7 @@ if (isset($_POST['delete_review'])) {
 <!-- custom js file link  -->
 <script src="js/script.js"></script>
 
-<?php include '../components/alerts.php';?>
+<?php include 'components/alers.php'; ?>
 
 </body>
 </html>

@@ -81,7 +81,7 @@ include 'components/connect.php';
 <!-- custom js file link  -->
 <script src="js/script.js"></script>
 
-<?php include 'components/alers.php'; ?>
+<?php include ('components/alers.php'); ?>
 
 </body>
 </html>
