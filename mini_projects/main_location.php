@@ -46,6 +46,7 @@ $select_counties->execute();
         .container a:hover {
             text-decoration: underline; /* Üzerine gelindiğinde alt çizgi ekler */
             color:#ffec9e; /* Üzerine gelindiğinde renk değiştirir */
+            
         }
    </style>
 </head>
@@ -58,12 +59,9 @@ $select_counties->execute();
     <?php
     while ($county = $select_counties->fetch(PDO::FETCH_ASSOC)) {
         // Her semt için bir bağlantı oluştur
-        
-    
     ?>
      <a href="main.php?county='<?=$county["COUNTY_NAME"]?>'"><?= htmlspecialchars($county["COUNTY_NAME"])?></a><br>
-
-     <?php
+    <?php
     };?>
 </div>
 

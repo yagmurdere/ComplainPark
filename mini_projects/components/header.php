@@ -2,7 +2,7 @@
 
    <section class="flex">
 
-      <a href="main.php" class="logo">
+      <a href="main_location.php" class="logo">
          <img class="logo-image" src="uploaded_files/icon.png" height="50px"> ComplainPark</a>
 
       <nav class="navbar">

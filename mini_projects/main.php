@@ -2,8 +2,12 @@
 
 include 'components/connect.php';
 
-$table = 'complainpark';
-
+if (isset($_GET['county'])) {
+    $county = $_GET['county'];
+} else {
+    $county = '';
+    echo "empty";
+}
 
 
 
@@ -52,9 +56,10 @@ $table = 'complainpark';
 <!-- header section starts  -->
 <?php include 'components/header.php'; ?>
 <!-- header section ends -->
+ <div class="container">
 <?php
       // Tek bir otopark kaydını çek
-      $select_posts = $conn->prepare("SELECT id, PARK_NAME, COUNTY_NAME FROM `istpark`");
+      $select_posts = $conn->prepare("SELECT id, PARK_NAME, COUNTY_NAME FROM `istpark` WHERE COUNTY_NAME=$county" );
       $select_posts->execute();
       
       if ($select_posts->rowCount() > 0) {
@@ -71,13 +76,8 @@ $table = 'complainpark';
 <?php
 }}
 ?>
-<select name="parks" id="parks" value="isim">
-    <option value="park1"><a href="view_post.php?get_id=1">arda turan</a><br></option>
-    <option value="park2">Bayrampaşa Adapark Katlı</option>
-    <option value="park3">Pendik Katlı Otopark</option>
-    <option value="park4">Şehit Murat Demirci Kapalı</option>
-    <option value="park5">Ümraniye Katlı Otopark</option>
-</select>
+</div>
+
 
 
 <!-- Main Content Ends -->
