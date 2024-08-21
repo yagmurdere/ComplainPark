@@ -60,11 +60,7 @@ if (isset($_POST['delete_review'])) {
       $x = '';
       if ($select_post->rowCount() > 0) {
          $fetch_post = $select_post->fetch(PDO::FETCH_ASSOC);
-         if ($fetch_post['park_type'] == "A") {
-            $x = "Açık Otopark";
-         } else {
-            $x = "Kapalı Otopark";
-         }
+         $x=$fetch_post['PARK_TYPE_ID'];
 
          // Calculate average rating and total reviews
          $total_ratings = 0;
@@ -75,7 +71,7 @@ if (isset($_POST['delete_review'])) {
          $rating_5 = 0;
 
          $select_ratings = $conn->prepare("SELECT * FROM `$reviews_table` WHERE post_id = ?");
-         $select_ratings->execute([$fetch_post['id']]);
+         $select_ratings->execute([$fetch_post['ID']]);
          $total_reviews = $select_ratings->rowCount();
 
          while ($fetch_rating = $select_ratings->fetch(PDO::FETCH_ASSOC)) {
@@ -102,10 +98,9 @@ if (isset($_POST['delete_review'])) {
    <div class="row">
       <div class="col">
          
-         <h3 class="title"><?= htmlspecialchars($fetch_post['name']); ?></h3>
+         <h3 class="title"><?= htmlspecialchars($fetch_post['PARK_NAME']); ?></h3>
          <p><?= $x ?></p><br>
-         <iframe src="<?= $fetch_post['location']; ?>" name="main_iframe" width="100%" height="450" style="border:4px darkcyan solid;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-
+         <iframe src="<?= $fetch_post['LOCATİON']; ?>" name="main_iframe" width="100%" height="450" style="border:4px darkcyan solid;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
       </div>
       <div class="col">
          <div class="flex">
@@ -126,6 +121,13 @@ if (isset($_POST['delete_review'])) {
                <p><span>☹</span></i><span><?= $rating_2; ?></span></p>
                <p><span>☹</span></i><span><?= $rating_1; ?></span></p>
             </div>
+         </div>
+      </div>
+      <div class="col">
+         <div class="flex">
+         <h1>Park Capacity: <?= htmlspecialchars($fetch_post['CAPACITY_OF_PARK']); ?></h1>
+         <h1>Working Hours: <?= htmlspecialchars($fetch_post['WORKING_TIME']); ?></h1>
+         <h1>Location: <?= htmlspecialchars($fetch_post['COUNTY_NAME']); ?></h1>
          </div>
       </div>
    </div>

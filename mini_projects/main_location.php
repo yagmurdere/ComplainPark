@@ -1,8 +1,10 @@
+
 <?php
 
 include 'components/connect.php';
 
-$table = 'complainpark';
+$select_counties = $conn->prepare("SELECT DISTINCT COUNTY_NAME FROM `istpark`");
+$select_counties->execute();
 
 
 
@@ -52,32 +54,18 @@ $table = 'complainpark';
 <!-- header section starts  -->
 <?php include 'components/header.php'; ?>
 <!-- header section ends -->
-<?php
-      // Tek bir otopark kaydını çek
-      $select_posts = $conn->prepare("SELECT id, PARK_NAME, COUNTY_NAME FROM `istpark`");
-      $select_posts->execute();
-      
-      if ($select_posts->rowCount() > 0) {
-        while ($fetch_post = $select_posts->fetch(PDO::FETCH_ASSOC)) {
-      
-?>
-<!-- Main Content Starts -->
+<div class="container">
+    <?php
+    while ($county = $select_counties->fetch(PDO::FETCH_ASSOC)) {
+        // Her semt için bir bağlantı oluştur
+        
+    
+    ?>
+     <a href="main.php?county='<?=$county["COUNTY_NAME"]?>'"><?= htmlspecialchars($county["COUNTY_NAME"])?></a><br>
 
-
-
- <a href="view_post.php?get_id=<?=$fetch_post["id"]?>"><?=$fetch_post["PARK_NAME"]?></a><br>
-
-
-<?php
-}}
-?>
-<select name="parks" id="parks" value="isim">
-    <option value="park1"><a href="view_post.php?get_id=1">arda turan</a><br></option>
-    <option value="park2">Bayrampaşa Adapark Katlı</option>
-    <option value="park3">Pendik Katlı Otopark</option>
-    <option value="park4">Şehit Murat Demirci Kapalı</option>
-    <option value="park5">Ümraniye Katlı Otopark</option>
-</select>
+     <?php
+    };?>
+</div>
 
 
 <!-- Main Content Ends -->
