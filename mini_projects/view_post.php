@@ -12,6 +12,7 @@ if (isset($_GET['get_id'])) {
     echo "empty";
 }
 
+
 $reviews_table = 'review_istpark';
 
 if (isset($_POST['delete_review'])) {
@@ -52,6 +53,7 @@ if (isset($_POST['delete_review'])) {
 <!-- view posts section starts  -->
 
 <section class="view-post">
+
 
    <?php
       // Tek bir otopark kaydını çek
@@ -95,12 +97,15 @@ if (isset($_POST['delete_review'])) {
 
          $average = ($total_reviews != 0) ? round($total_ratings / $total_reviews, 1) : 0;
    ?>
+
    <div class="row">
       <div class="col">
          
          <h3 class="title"><?= htmlspecialchars($fetch_post['PARK_NAME']); ?></h3>
          <p><?= $x ?></p><br>
          <iframe src="<?= $fetch_post['LOCATİON']; ?>" name="main_iframe" width="100%" height="450" style="border:4px darkcyan solid;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+         
       </div>
       <div class="col">
          <div class="flex">

@@ -3,7 +3,7 @@
 
 include 'components/connect.php';
 
-$select_counties = $conn->prepare("SELECT DISTINCT COUNTY_NAME FROM `istpark`");
+$select_counties = $conn->prepare("SELECT DISTINCT COUNTY_NAME FROM `istpark` ORDER BY COUNTY_NAME");
 $select_counties->execute();
 
 
@@ -26,7 +26,7 @@ $select_counties->execute();
             width: 80%; /* Genişlik ayarı, sayfanın genişliğine göre */
             max-width: 600px; /* Maksimum genişlik */
             margin:  auto; /* Ortalamak için */
-            margin-top: 80px;
+            margin-top: 50px;
             padding: 20px; /* İç boşluk */
             border: 2px solid #000; /* Sınır ayarı */
             border-color: #0056b3;

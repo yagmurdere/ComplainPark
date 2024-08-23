@@ -28,7 +28,7 @@ if (isset($_GET['county'])) {
             width: 80%; /* Genişlik ayarı, sayfanın genişliğine göre */
             max-width: 600px; /* Maksimum genişlik */
             margin:  auto; /* Ortalamak için */
-            margin-top: 80px;
+            margin-top: 50px;
             padding: 20px; /* İç boşluk */
             border: 2px solid #000; /* Sınır ayarı */
             border-color: #0056b3;
@@ -59,7 +59,7 @@ if (isset($_GET['county'])) {
  <div class="container">
 <?php
       // Tek bir otopark kaydını çek
-      $select_posts = $conn->prepare("SELECT id, PARK_NAME, COUNTY_NAME FROM `istpark` WHERE COUNTY_NAME=$county" );
+      $select_posts = $conn->prepare("SELECT ID, PARK_NAME, COUNTY_NAME FROM `istpark` WHERE COUNTY_NAME=$county ORDER BY PARK_NAME" );
       $select_posts->execute();
       
       if ($select_posts->rowCount() > 0) {
@@ -68,10 +68,7 @@ if (isset($_GET['county'])) {
 ?>
 <!-- Main Content Starts -->
 
-
-
- <a href="view_post.php?get_id=<?=$fetch_post["id"]?>"><?=$fetch_post["PARK_NAME"]?></a><br>
-
+ <a href="view_post.php?get_id=<?=$fetch_post["ID"]?>"><?=$fetch_post["PARK_NAME"]?></a><br>
 
 <?php
 }}
