@@ -55,6 +55,7 @@ $select_counties->execute();
 <!-- header section starts  -->
 <?php include 'components/header.php'; ?>
 <!-- header section ends -->
+<div class="container"><h1>İLÇELER</h1></div>
 <div class="container">
     <?php
     while ($county = $select_counties->fetch(PDO::FETCH_ASSOC)) {

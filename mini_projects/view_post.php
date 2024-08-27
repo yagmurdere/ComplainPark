@@ -97,8 +97,9 @@ if (isset($_POST['delete_review'])) {
 
          $average = ($total_reviews != 0) ? round($total_ratings / $total_reviews, 1) : 0;
    ?>
-
    <div class="row">
+
+
       <div class="col">
          
          <h3 class="title"><?= htmlspecialchars($fetch_post['PARK_NAME']); ?></h3>

@@ -56,16 +56,21 @@ if (isset($_GET['county'])) {
 <!-- header section starts  -->
 <?php include 'components/header.php'; ?>
 <!-- header section ends -->
+<div class="container"><h1><?=$county?></h1></div>
+
  <div class="container">
+
 <?php
       // Tek bir otopark kaydını çek
       $select_posts = $conn->prepare("SELECT ID, PARK_NAME, COUNTY_NAME FROM `istpark` WHERE COUNTY_NAME=$county ORDER BY PARK_NAME" );
       $select_posts->execute();
       
       if ($select_posts->rowCount() > 0) {
+        
         while ($fetch_post = $select_posts->fetch(PDO::FETCH_ASSOC)) {
       
 ?>
+
 <!-- Main Content Starts -->
 
  <a href="view_post.php?get_id=<?=$fetch_post["ID"]?>"><?=$fetch_post["PARK_NAME"]?></a><br>
